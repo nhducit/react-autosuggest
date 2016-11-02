@@ -134,7 +134,7 @@
 	  return React.createElement(
 	    'span',
 	    null,
-	    suggestion.name
+	    suggestion.name + '-fuu'
 	  );
 	};
 
@@ -169,6 +169,10 @@
 	      });
 	    };
 
+	    _this.onSuggestionFocused = function () {
+	      console.log('hehe');
+	    };
+
 	    _this.state = {
 	      value: '',
 	      suggestions: getSuggestions('')
@@ -195,7 +199,8 @@
 	        onSuggestionsClearRequested: this.onSuggestionsClearRequested,
 	        getSuggestionValue: getSuggestionValue,
 	        renderSuggestion: renderSuggestion,
-	        inputProps: inputProps
+	        inputProps: inputProps,
+	        onSuggestionFocused: this.onSuggestionFocused
 	      });
 	    }
 	  }]);

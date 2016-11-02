@@ -18,6 +18,7 @@ class Autosuggest extends Component {
     onSuggestionsFetchRequested: PropTypes.func.isRequired,
     onSuggestionsClearRequested: PropTypes.func,
     onSuggestionSelected: PropTypes.func,
+    onSuggestionFocused: PropTypes.func,
     renderInputComponent: PropTypes.func,
     renderSuggestionsContainer: PropTypes.func,
     getSuggestionValue: PropTypes.func.isRequired,
@@ -56,10 +57,10 @@ class Autosuggest extends Component {
   componentWillReceiveProps(nextProps) {
     if (shallowEqualArrays(nextProps.suggestions, this.props.suggestions)) {
       if (nextProps.focusFirstSuggestion &&
-          nextProps.suggestions.length > 0 &&
-          nextProps.focusedSuggestionIndex === null &&
-          nextProps.inputProps.value !== this.props.inputProps.value &&
-          nextProps.valueBeforeUpDown === this.props.valueBeforeUpDown) {
+        nextProps.suggestions.length > 0 &&
+        nextProps.focusedSuggestionIndex === null &&
+        nextProps.inputProps.value !== this.props.inputProps.value &&
+        nextProps.valueBeforeUpDown === this.props.valueBeforeUpDown) {
         this.focusFirstSuggestion();
       }
     } else {
@@ -87,10 +88,10 @@ class Autosuggest extends Component {
     const { suggestions, multiSection, getSectionSuggestions } = this.props;
 
     if (multiSection) {
-      return getSectionSuggestions(suggestions[sectionIndex])[suggestionIndex];
+      return getSectionSuggestions(suggestions[ sectionIndex ])[ suggestionIndex ];
     }
 
-    return suggestions[suggestionIndex];
+    return suggestions[ suggestionIndex ];
   }
 
   getFocusedSuggestion() {
@@ -183,8 +184,15 @@ class Autosuggest extends Component {
     }
   };
 
+  onSuggestionFocused = (sectionIndex, itemIndex) => {
+    const _onSuggestionFocused = this.props.onSuggestionFocused || function () {
+      }
+    _onSuggestionFocused(this.getSuggestionValueByIndex(sectionIndex, itemIndex))
+  }
+
   onSuggestionMouseEnter = (event, { sectionIndex, itemIndex }) => {
     this.props.updateFocusedSuggestion(sectionIndex, itemIndex);
+    this.onSuggestionFocused(sectionIndex, itemIndex)
   };
 
   focusFirstSuggestion = () => {
@@ -350,6 +358,8 @@ class Autosuggest extends Component {
 
               updateFocusedSuggestion(newFocusedSectionIndex, newFocusedItemIndex, value);
               this.maybeCallOnChange(event, newValue, event.key === 'ArrowDown' ? 'down' : 'up');
+              console.log('focuesd: ', newValue)
+              console.log(newFocusedSectionIndex, newFocusedItemIndex, value)
             }
 
             event.preventDefault(); // Prevents the cursor from moving

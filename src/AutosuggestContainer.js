@@ -23,23 +23,23 @@ const mapToAutowhateverTheme = theme => {
   for (const key in theme) {
     switch (key) {
       case 'suggestionsContainer':
-        result['itemsContainer'] = theme[key];
+        result[ 'itemsContainer' ] = theme[ key ];
         break;
 
       case 'suggestion':
-        result['item'] = theme[key];
+        result[ 'item' ] = theme[ key ];
         break;
 
       case 'suggestionFocused':
-        result['itemFocused'] = theme[key];
+        result[ 'itemFocused' ] = theme[ key ];
         break;
 
       case 'suggestionsList':
-        result['itemsList'] = theme[key];
+        result[ 'itemsList' ] = theme[ key ];
         break;
 
       default:
-        result[key] = theme[key];
+        result[ key ] = theme[ key ];
     }
   }
 
@@ -50,14 +50,14 @@ export default class AutosuggestContainer extends Component {
   static propTypes = {
     suggestions: PropTypes.array.isRequired,
     onSuggestionsFetchRequested: (props, propName) => {
-      const onSuggestionsFetchRequested = props[propName];
+      const onSuggestionsFetchRequested = props[ propName ];
 
       if (typeof onSuggestionsFetchRequested !== 'function') {
         throw new Error('\'onSuggestionsFetchRequested\' must be implemented. See: https://github.com/moroshko/react-autosuggest#onSuggestionsFetchRequestedProp');
       }
     },
     onSuggestionsClearRequested: (props, propName) => {
-      const onSuggestionsClearRequested = props[propName];
+      const onSuggestionsClearRequested = props[ propName ];
 
       if (props.alwaysRenderSuggestions === false && typeof onSuggestionsClearRequested !== 'function') {
         throw new Error('\'onSuggestionsClearRequested\' must be implemented. See: https://github.com/moroshko/react-autosuggest#onSuggestionsClearRequestedProp');
@@ -69,7 +69,7 @@ export default class AutosuggestContainer extends Component {
     getSuggestionValue: PropTypes.func.isRequired,
     renderSuggestion: PropTypes.func.isRequired,
     inputProps: (props, propName) => {
-      const inputProps = props[propName];
+      const inputProps = props[ propName ];
 
       if (!inputProps.hasOwnProperty('value')) {
         throw new Error('\'inputProps\' must have \'value\'.');
@@ -83,14 +83,14 @@ export default class AutosuggestContainer extends Component {
     alwaysRenderSuggestions: PropTypes.bool,
     multiSection: PropTypes.bool,
     renderSectionTitle: (props, propName) => {
-      const renderSectionTitle = props[propName];
+      const renderSectionTitle = props[ propName ];
 
       if (props.multiSection === true && typeof renderSectionTitle !== 'function') {
         throw new Error('\'renderSectionTitle\' must be implemented. See: https://github.com/moroshko/react-autosuggest#renderSectionTitleProp');
       }
     },
     getSectionSuggestions: (props, propName) => {
-      const getSectionSuggestions = props[propName];
+      const getSectionSuggestions = props[ propName ];
 
       if (props.multiSection === true && typeof getSectionSuggestions !== 'function') {
         throw new Error('\'getSectionSuggestions\' must be implemented. See: https://github.com/moroshko/react-autosuggest#getSectionSuggestionsProp');
@@ -137,7 +137,8 @@ export default class AutosuggestContainer extends Component {
       renderSuggestionsContainer, getSuggestionValue, renderSuggestion,
       renderSectionTitle, getSectionSuggestions, inputProps, onSuggestionSelected,
       focusInputOnSuggestionClick, focusFirstSuggestion, alwaysRenderSuggestions,
-      theme, id
+      theme, id,
+      onSuggestionFocused
     } = this.props;
 
     return (
@@ -158,6 +159,7 @@ export default class AutosuggestContainer extends Component {
         onSuggestionSelected={onSuggestionSelected}
         focusInputOnSuggestionClick={focusInputOnSuggestionClick}
         focusFirstSuggestion={focusFirstSuggestion}
+        onSuggestionFocused={onSuggestionFocused}
         theme={mapToAutowhateverTheme(theme)}
         id={id}
         inputRef={this.storeInputReference}

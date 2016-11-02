@@ -54,6 +54,9 @@ export default class Basic extends Component {
       suggestions: []
     });
   };
+  onSuggestionFocused = (a, b) => {
+    console.log('hehe', a, b)
+  }
 
   render() {
     const { value, suggestions } = this.state;
@@ -64,12 +67,13 @@ export default class Basic extends Component {
     };
 
     return (
-      <div id="basic-example" className={styles.container}>
-        <div className={styles.textContainer}>
-          <div className={styles.title}>
+      <div id="basic-example"
+        className={styles.container} >
+        <div className={styles.textContainer} >
+          <div className={styles.title} >
             Basic
           </div>
-          <div className={styles.description}>
+          <div className={styles.description} >
             Let’s start simple. Here’s a plain list of suggestions.
           </div>
           <Link
@@ -80,7 +84,7 @@ export default class Basic extends Component {
             Codepen
           </Link>
         </div>
-        <div className={styles.autosuggest}>
+        <div className={styles.autosuggest} >
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
@@ -89,6 +93,7 @@ export default class Basic extends Component {
             renderSuggestion={renderSuggestion}
             inputProps={inputProps}
             focusInputOnSuggestionClick={focusInputOnSuggestionClick}
+            onSuggestionFocused={this.onSuggestionFocused}
             id="basic-example"
           />
         </div>

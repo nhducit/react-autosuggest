@@ -77,7 +77,7 @@ const getSuggestions = value => {
 const getSuggestionValue = suggestion => suggestion.name;
 
 const renderSuggestion = suggestion => (
-  <span>{suggestion.name}</span>
+  <span>{`${suggestion.name}-fuu`}</span>
 );
 
 class App extends React.Component { // eslint-disable-line no-undef
@@ -108,6 +108,10 @@ class App extends React.Component { // eslint-disable-line no-undef
     });
   };
 
+  onSuggestionFocused = () =>{
+    console.log('hehe')
+  }
+
   render() {
     const { value, suggestions } = this.state;
     const inputProps = {
@@ -124,6 +128,7 @@ class App extends React.Component { // eslint-disable-line no-undef
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
+        onSuggestionFocused={this.onSuggestionFocused}
       />
     );
   }
